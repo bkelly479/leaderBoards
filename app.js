@@ -3,6 +3,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+var engines = require('consolidate');
+
+//middlewares
+var userInViews = require('./lib/middleware/userInViews.js');
+
 //dotenv file to access environment variables
 var dotenv = require('dotenv');
 dotenv.config();
@@ -17,14 +22,14 @@ var sess = {
   saveUninitialized: true
 };
 
-if(app.get('env') === 'production'){
+if(process.env.NODE_ENV === 'production'){
   // Use secure cookies in production (requires SSL/TLS)
   sess.cookie.secure = true;
 }
 
 //load passport
 var passport = require('passport');
-var Auth0Strategy = require('passoprt-auth0');
+var Auth0Strategy = require('passport-auth0');
 
 //configure passport to use AUTH0
 var strategy = new Auth0Strategy(
@@ -47,8 +52,10 @@ passport.use(strategy);
 
 
 //routers
+var authRouter = require('./routes/auth');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var getUserDataRouter = require('./routes/getUserData');
 
 var app = express();
 
@@ -58,11 +65,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-//routes
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
+app.set('views', __dirname + '/views');
+app.engine('html', engines.mustache);
+app.set('view engine', 'html');
 
 //use session
 app.use(session(sess));
@@ -70,6 +75,26 @@ app.use(session(sess));
 //need to be after app.use(session(sess))
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+
+//routes
+app.use(userInViews());
+app.use('/', authRouter);
+app.use('/', indexRouter);
+app.use('/user', usersRouter);
+app.use('/getUserData', getUserDataRouter)
+
+
+
 
 
 module.exports = app;

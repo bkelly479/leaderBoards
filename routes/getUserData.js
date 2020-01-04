@@ -5,11 +5,10 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', secured(), function(req, res, next) {
   const { _raw, _json, ...userProfile } = req.user;
+  
+  console.log(userProfile)
 
-  res.render('user', {
-    userProfile: JSON.stringify(userProfile, null, 2),
-    title: 'Profile page'
-  });
+  res.send(userProfile);
 });
 
 module.exports = router;
