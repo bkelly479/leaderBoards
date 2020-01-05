@@ -1,6 +1,7 @@
 
 
 window.onload = function(){
+
   fetch('/getUserData')
     .then((response) => {
       return response.json()
@@ -9,5 +10,12 @@ window.onload = function(){
       console.log(userData);
 
       document.getElementById('userName').innerHTML = userData.displayName;
+
+      localStorage.setItem("userData", userData);
     })
+
+}
+
+function removeStorage(){
+  localStorage.removeItem('userData');
 }

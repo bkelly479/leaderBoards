@@ -12,10 +12,36 @@
 </head>
 
 <body>
-  <h1 id="userName">USER PAGE</h1>
-  <p id="userWelcome">THIS IS THE USER PAGE</p>
+  <nav class="navbar navbar-expand-md navbar-light bg-faded d-flex">
 
-  <a href="/logout">Log Out</a>
+    <a class="navbar-brand" href="/">Leader Boards</a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+
+
+
+      <ul class="navbar-nav ml-auto" id="userDropdown">
+
+        <li class="nav-item dropdown ">
+          <a class="nav-link dropdown-toggle " href="javascript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/user">User Page</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/logout" onClick="removeStorage()">Log Out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="body-content border">
+    <h1 id="userName">USER PAGE</h1>
+    <p id="userWelcome">THIS IS THE USER PAGE</p>
+
+    <a href="/logout" onClick="removeStorage()">Log Out</a>
+  </div>
 
 
 </body>
