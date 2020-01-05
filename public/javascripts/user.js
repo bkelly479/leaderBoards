@@ -9,9 +9,11 @@ window.onload = function(){
     .then((userData) =>{
       console.log(userData);
 
-      document.getElementById('userName').innerHTML = userData.displayName;
+      document.getElementById('navbarDropdownMenuLink').innerHTML = userData.displayName;
 
-      localStorage.setItem("userData", userData);
+      //console.log(userData);
+
+      localStorage.setItem("userData", JSON.stringify(userData));
     })
 
 }

@@ -1,7 +1,12 @@
 window.onload = function(){
 
   if(localStorage.getItem("userData")){
+    var userData = JSON.parse(localStorage.getItem("userData"));
+
+
     document.getElementById('userDropdown').hidden = false;
+
+    document.getElementById('navbarDropdownMenuLink').innerHTML = userData.displayName;
 
     console.log('logged in');
 
