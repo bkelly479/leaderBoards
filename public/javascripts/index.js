@@ -17,24 +17,6 @@ window.onload = function(){
     document.getElementById('loginButton').hidden = false;
   }
 
-/*
-  fetch('/getUserData')
-    .then((response) => {
-      return response.json()
-    })
-    .then((userData) =>{
-      document.getElementById('userDropdown').hidden = false;
-
-      console.log('logged in');
-    })
-    .catch(function(error){
-
-      document.getElementById('userDropdown').hidden = true;
-      console.log('not logged in');
-    })
-
-*/
-
 }
 
 

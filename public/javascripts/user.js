@@ -11,8 +11,6 @@ window.onload = function(){
 
       document.getElementById('navbarDropdownMenuLink').innerHTML = userData.displayName;
 
-      //console.log(userData);
-
       localStorage.setItem("userData", JSON.stringify(userData));
     })
 
