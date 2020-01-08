@@ -12,6 +12,7 @@
     "dotenv": "^8.2.0",
     "express": "~4.16.0",
     "express-session": "^1.17.0",
+    "mongodb": "^3.4.1",
     "morgan": "~1.9.0",
     "mustache": "^3.2.1",
     "passport": "^0.4.1",

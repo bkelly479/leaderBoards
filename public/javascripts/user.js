@@ -14,6 +14,18 @@ window.onload = function(){
       localStorage.setItem("userData", JSON.stringify(userData));
     })
 
+  fetch('/api/checkUser')
+    .then((response) =>{
+      return response.json();
+    })
+    .then((userExists) =>{
+      if(userExists){
+        alert('user exists');
+      }else{
+        fetch('/api/newUser');
+      }
+    })
+
 }
 
 function removeStorage(){
