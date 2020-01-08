@@ -28,8 +28,6 @@ function newConnection(){
 router.get('/newUser', secured(), function(req, res, next){
   const { _raw, _json, ...userProfile } = req.user;
 
-  console.log(userProfile)
-
   mongo.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -43,7 +41,7 @@ router.get('/newUser', secured(), function(req, res, next){
 
     const collection = db.collection('users');
 
-    collection.insertOne({userData: userProfile, boards: 'none'}, (err, result) =>{
+    collection.insertOne({userID: userProfile.id, boards: 'none'}, (err, result) =>{
       if(err){
         console.log(err);
       }else{
@@ -54,17 +52,13 @@ router.get('/newUser', secured(), function(req, res, next){
 
     client.close();
   });
-
-
-
   res.send(userProfile);
 
 })
 
 router.get('/checkUser', secured(), function(req, res, next){
   const { _raw, _json, ...userProfile } = req.user;
-
-
+  
   mongo.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -78,7 +72,7 @@ router.get('/checkUser', secured(), function(req, res, next){
 
     const collection = db.collection('users');
 
-    collection.find({userData: userProfile}).toArray((err, items) => {
+    collection.find({userID: userProfile.id}).toArray((err, items) => {
       if(err){
         console.log(err);
       }else{

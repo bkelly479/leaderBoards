@@ -6,7 +6,7 @@ window.onload = function(){
 
     document.getElementById('userDropdown').hidden = false;
 
-    document.getElementById('navbarDropdownMenuLink').innerHTML = userData.displayName;
+    document.getElementById('navbarDropdownMenuLink').innerHTML = userData.nickname;
 
     console.log('logged in');
 

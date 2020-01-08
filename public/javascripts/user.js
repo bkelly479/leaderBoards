@@ -9,7 +9,7 @@ window.onload = function(){
     .then((userData) =>{
       console.log(userData);
 
-      document.getElementById('navbarDropdownMenuLink').innerHTML = userData.displayName;
+      document.getElementById('navbarDropdownMenuLink').innerHTML = userData.nickname;
 
       localStorage.setItem("userData", JSON.stringify(userData));
     })
@@ -20,7 +20,7 @@ window.onload = function(){
     })
     .then((userExists) =>{
       if(userExists){
-        alert('user exists');
+        console.log('userExists')
       }else{
         fetch('/api/newUser');
       }
