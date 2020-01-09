@@ -7,7 +7,7 @@ window.onload = function(){
       return response.json()
     })
     .then((userData) =>{
-      console.log(userData);
+      //console.log(userData);
 
       document.getElementById('navbarDropdownMenuLink').innerHTML = userData.nickname;
 
@@ -25,6 +25,25 @@ window.onload = function(){
         fetch('/api/newUser');
       }
     })
+
+  $('#createBoard').click(function() {
+    console.log('button clicked');
+    console.log($('#form2').val());
+      $.ajax({
+          url: '/api/newBoard',
+          type: 'POST',
+          data: {
+              boardName: $('#form2').val(),
+              boardPurpose: $('#form3').val()
+          },
+          success: function(msg) {
+              console.log('new board data sent to back end');
+          },
+          error: function(xhr, textStatus, errorThrown){
+                alert('request failed->'+textStatus);
+          }
+      });
+  });
 
 }
 

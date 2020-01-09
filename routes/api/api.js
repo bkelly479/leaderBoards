@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var secured = require('./../../lib/middleware/secured.js');
+var multer = require('multer');
+
+var upload = multer();
 
 
 const mongo = require('mongodb').MongoClient;
@@ -58,7 +61,7 @@ router.get('/newUser', secured(), function(req, res, next){
 
 router.get('/checkUser', secured(), function(req, res, next){
   const { _raw, _json, ...userProfile } = req.user;
-  
+
   mongo.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -87,6 +90,11 @@ router.get('/checkUser', secured(), function(req, res, next){
 
     client.close();
   });
+})
+
+router.post('/newBoard', function(req, res, next){
+  console.log(req.body);
+  res.send('success');
 })
 
 
