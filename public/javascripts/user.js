@@ -12,6 +12,29 @@ window.onload = function(){
       document.getElementById('navbarDropdownMenuLink').innerHTML = userData.nickname;
 
       localStorage.setItem("userData", JSON.stringify(userData));
+
+      return;
+    })
+
+  fetch('/api/getAllUsers')
+    .then((response) =>{
+      console.log('somethign happened here');
+      return response.json();
+    })
+    .then((allUsers) =>{
+
+      var usersSelect = document.getElementById('usersSelect');
+
+      for(var i = 0; i < allUsers.length; i++){
+        var option = document.createElement("option");
+        option.text = allUsers[i].userData.nickname;
+        option.value = allUsers[i].userID;
+
+        usersSelect.add(option);
+        //console.log(allUsers[i].userData.nickname);
+      }
+
+      return;
     })
 
   fetch('/api/checkUser')
@@ -28,13 +51,14 @@ window.onload = function(){
 
   $('#createBoard').click(function() {
     console.log('button clicked');
-    console.log($('#form2').val());
+
       $.ajax({
           url: '/api/newBoard',
           type: 'POST',
           data: {
-              boardName: $('#form2').val(),
-              boardPurpose: $('#form3').val()
+              boardName: $('#boardName').val(),
+              boardPurpose: $('#boardPurpose').val(),
+              boardUsers: $('#usersSelect').val()
           },
           success: function(msg) {
               console.log('new board data sent to back end');
@@ -44,6 +68,13 @@ window.onload = function(){
           }
       });
   });
+
+  $('.js-example-basic-multiple').select2();
+
+
+
+
+
 
 }
 

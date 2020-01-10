@@ -5,8 +5,8 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', secured(), function(req, res, next) {
   const { _raw, _json, ...userProfile } = req.user;
-  
-  console.log(userProfile)
+
+  //console.log(userProfile)
 
   res.send(userProfile);
 });

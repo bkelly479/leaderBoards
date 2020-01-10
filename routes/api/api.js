@@ -44,7 +44,7 @@ router.get('/newUser', secured(), function(req, res, next){
 
     const collection = db.collection('users');
 
-    collection.insertOne({userID: userProfile.id, boards: 'none'}, (err, result) =>{
+    collection.insertOne({userID: userProfile.id, userData: userProfile, boards: 'none'}, (err, result) =>{
       if(err){
         console.log(err);
       }else{
@@ -84,6 +84,39 @@ router.get('/checkUser', secured(), function(req, res, next){
         }else{
           res.send(false);
         }
+      }
+    });
+
+
+    client.close();
+  });
+})
+
+router.get('/getAllUsers', secured(), function(req, res, next){
+  const { _raw, _json, ...userProfile } = req.user;
+
+
+  mongo.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if(err){
+      console.log(err);
+      return
+    }
+
+    const db = client.db('leaderBoards');
+
+    const collection = db.collection('users');
+
+
+
+    collection.find().toArray((err, items) => {
+      if(err){
+        console.log(err);
+      }else{
+
+        res.send(items);
       }
     });
 

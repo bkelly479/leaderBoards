@@ -10,6 +10,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+
 </head>
 
 <body>
@@ -65,14 +68,19 @@
                   <div class="modal-body mx-3">
                     <div class="md-form mb-5">
                       <i class="fas fa-user prefix grey-text"></i>
-                      <input type="text" id="form3" class="form-control validate">
+                      <input type="text" id="boardName" class="form-control validate">
                       <label data-error="wrong" data-success="right" for="form3">Board Name</label>
                     </div>
 
                     <div class="md-form mb-4">
                       <i class="fas fa-envelope prefix grey-text"></i>
-                      <input type="text" id="form2" class="form-control validate">
+                      <input type="text" id="boardPurpose" class="form-control validate">
                       <label data-error="wrong" data-success="right" for="form2">Board Purpose</label>
+                    </div>
+
+                    <div class="md-form mb-4 d-flex">
+                      <select class="js-example-basic-multiple d-flex border" id='usersSelect' style="width: 100%;" name="states[]" multiple="multiple">
+                      </select>
                     </div>
 
                   </div>
