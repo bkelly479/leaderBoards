@@ -44,7 +44,7 @@ router.get('/newUser', secured(), function(req, res, next){
 
     const collection = db.collection('users');
 
-    collection.insertOne({userID: userProfile.id, userData: userProfile, boards: 'none'}, (err, result) =>{
+    collection.insertOne({userID: userProfile.id, userData: userProfile }, (err, result) =>{
       if(err){
         console.log(err);
       }else{
@@ -126,7 +126,50 @@ router.get('/getAllUsers', secured(), function(req, res, next){
 })
 
 router.post('/newBoard', function(req, res, next){
-  console.log(req.body);
+
+  var boardUsers = req.body['boardUsers[]'];
+  var usersList = [];
+
+  for(var i = 0; i < boardUsers.length; i++){
+    var userWithData = {
+      userID: boardUsers[i],
+      userScore: 0
+    }
+
+    usersList.push(userWithData);
+  }
+
+
+
+
+
+  mongo.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if(err){
+      console.log(err);
+      return
+    }
+
+    const db = client.db('leaderBoards');
+
+    const collection = db.collection('boards');
+
+
+    collection.insertOne({boardName: req.body.boardName, boardPurpose: req.body.boardPurpose, boardUsers: usersList, boardTask: req.body.boardTask, boardIsPublic: req.body.boardPublic}, (err, result) =>{
+      if(err){
+        console.log(err);
+      }else{
+        console.log('new board data has been inserted');
+      }
+
+    });
+
+
+    client.close();
+  });
+
   res.send('success');
 })
 
