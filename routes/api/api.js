@@ -139,10 +139,6 @@ router.post('/newBoard', function(req, res, next){
     usersList.push(userWithData);
   }
 
-
-
-
-
   mongo.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
