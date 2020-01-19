@@ -11,6 +11,8 @@ window.onload = function(){
 
       document.getElementById('navbarDropdownMenuLink').innerHTML = userData.nickname;
 
+      document.getElementById('userName').innerHTML = userData.nickname;
+
       localStorage.setItem("userData", JSON.stringify(userData));
 
       return;
@@ -28,6 +30,42 @@ window.onload = function(){
       }else{
         fetch('/api/newUser');
       }
+    })
+
+  fetch('/api/getUserBoards')
+    .then((response) =>{
+      return response.json();
+    })
+    .then((userBoards) =>{
+      //console.log(userBoards);
+
+      var output = document.getElementById('boardArea');
+      var numOfRows = userBoards.length / 4;
+      console.log("NUM OF ROWS" + numOfRows);
+
+      for( var i = 0; i < numOfRows; i++){
+        //console.log(i);
+        output.innerHTML = output.innerHTML + "<div class='card-deck' id='deck" + i + "''></div>"
+      }
+
+      var currentRow = 0;
+
+      for(board in userBoards){
+        //console.log("MOD: " + board / 4.0);
+
+        if(board % 4.0 == 0 && board != 0){
+          currentRow++;
+        }
+        //console.log(userBoards[board]);
+        console.log("CURRENT ROW" + currentRow);
+
+        var outputLoc = document.getElementById('deck' + currentRow);
+
+        newCard(userBoards[board], outputLoc);
+
+      }
+
+
     })
 
   $('#createBoard').click(function() {
@@ -91,4 +129,14 @@ function populateAllUsers(){
 
       return;
     })
+}
+
+function newCard(data, loc){
+  loc.innerHTML = loc.innerHTML +
+                    "<div class='card my-2' style='width: 25%'>" +
+                      "<div class='card-body'>" +
+                        " <h5 class='card-title'>" + data.boardName + "</h5>" +
+                        " <p class='card-subtitle'> " + data.boardPurpose + "</p>" +
+                      " </div>" +
+                    " </div>";
 }

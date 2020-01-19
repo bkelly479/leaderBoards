@@ -157,6 +157,7 @@ router.post('/newBoard', function(req, res, next){
       if(err){
         console.log(err);
       }else{
+        console.log(usersList);
         console.log('new board data has been inserted');
       }
 
@@ -167,6 +168,39 @@ router.post('/newBoard', function(req, res, next){
   });
 
   res.send('success');
+})
+
+router.get('/getUserBoards', secured(), function(req, res, next){
+  const { _raw, _json, ...userProfile } = req.user;
+
+  //console.log(req.user.id);
+
+
+  mongo.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }, (err, client) => {
+    if(err){
+      console.log(err);
+      return
+    }
+
+    const db = client.db('leaderBoards');
+
+    const collection = db.collection('boards');
+
+    collection.find({boardUsers: {$elemMatch:  {userID: req.user.id}}}).toArray(function(err, documents) {
+        if(err){
+          console.log(err);
+        }else{
+          console.log(documents);
+          res.send(documents);
+        }
+      })
+
+    client.close();
+  });
+
 })
 
 
