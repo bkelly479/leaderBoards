@@ -56,7 +56,8 @@ var authRouter = require('./routes/auth');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var getUserDataRouter = require('./routes/getUserData');
-var apiRouter = require('./routes/api/api')
+var apiRouter = require('./routes/api/api');
+var boardRouter = require('./routes/board');
 
 var app = express();
 
@@ -94,6 +95,7 @@ app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/getUserData', getUserDataRouter)
 app.use('/api', apiRouter);
+app.use('/board', boardRouter);
 
 
 

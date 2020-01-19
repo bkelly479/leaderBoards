@@ -134,9 +134,11 @@ function populateAllUsers(){
 function newCard(data, loc){
   loc.innerHTML = loc.innerHTML +
                     "<div class='card my-2' style='width: 25%'>" +
-                      "<div class='card-body'>" +
-                        " <h5 class='card-title'>" + data.boardName + "</h5>" +
-                        " <p class='card-subtitle'> " + data.boardPurpose + "</p>" +
-                      " </div>" +
+                      "<a class='card-block stretched-link text-decoration-none' href='/board/" + data._id + "'>" +
+                        "<div class='card-body'>" +
+                          " <h5 class='card-title'>" + data.boardName + "</h5>" +
+                          " <p class='card-subtitle'> " + data.boardPurpose + "</p>" +
+                        " </div>" +
+                      "</a>"
                     " </div>";
 }
